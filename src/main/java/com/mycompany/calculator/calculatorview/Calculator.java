@@ -92,7 +92,7 @@ public class Calculator {
     }
     
     /**
-     * Implementa el algoritmo Shunting Yard para convertir infix a postfix
+     * sHUNTING YARD ALGORITHM
      */
     private List<String> shuntingYard(List<String> tokens) {
         List<String> output = new ArrayList<>();
@@ -117,13 +117,13 @@ public class Calculator {
                 if (operatorStack.isEmpty()) {
                     throw new IllegalArgumentException("Paréntesis no balanceados");
                 }
-                operatorStack.pop(); // Remover el "("
+                operatorStack.pop(); 
             } else {
                 throw new IllegalArgumentException("Token no válido: " + token);
             }
         }
         
-        // Vaciar el stack de operadores
+        
         while (!operatorStack.isEmpty()) {
             if (operatorStack.peek().equals("(")) {
                 throw new IllegalArgumentException("Paréntesis no balanceados");
@@ -134,9 +134,6 @@ public class Calculator {
         return output;
     }
     
-    /**
-     * Evalúa una expresión en notación postfix
-     */
     private double evaluatePostfix(List<String> postfix) {
         Stack<Double> stack = new Stack<>();
         
@@ -161,9 +158,8 @@ public class Calculator {
         return stack.pop();
     }
     
-    /**
-     * Aplica un operador a dos operandos
-     */
+    // Operator aplicance
+    
     private double applyOperator(String operator, double a, double b) {
         switch (operator) {
             case "+":
@@ -186,39 +182,29 @@ public class Calculator {
         }
     }
     
-    /**
-     * Verifica si un token es un número
-     */
+    // It verifies if a number is a token
     private boolean isNumber(String token) {
         return Pattern.matches("-?\\d+(\\.\\d+)?", token);
     }
     
-    /**
-     * Verifica si un token es un operador
-     */
+    // It verifies if an operator is a token 
     private boolean isOperator(String token) {
         return OPERATOR_PRECEDENCE.containsKey(token);
     }
     
-    /**
-     * Compara la precedencia de dos operadores
-     */
+    // It compares the operator precence
     private boolean hasHigherPrecedence(String op1, String op2) {
         int prec1 = OPERATOR_PRECEDENCE.getOrDefault(op1, 0);
         int prec2 = OPERATOR_PRECEDENCE.getOrDefault(op2, 0);
         return prec1 > prec2;
     }
     
-    /**
-     * Limpia el último resultado
-     */
+    // clear last result
     public void clear() {
         lastResult = 0;
     }
     
-    /**
-     * Obtiene el último resultado
-     */
+    // Get the last result
     public double getLastResult() {
         return lastResult;
     }

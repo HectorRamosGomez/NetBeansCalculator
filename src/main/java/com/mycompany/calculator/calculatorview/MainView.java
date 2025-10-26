@@ -18,6 +18,7 @@ public class MainView extends javax.swing.JFrame {
         jtxtScreen.setEditable(false);
     }
     
+    // Calculator constructor called
     private Calculator calculator = new Calculator();
     
     /**
@@ -459,7 +460,7 @@ try {
         }
         double result = calculator.evaluate(expression);
         
-        // Formatear el resultado para quitar decimales innecesarios
+        // round a number
         if (result == (long) result) {
             jtxtScreen.setText(String.format("%d", (long) result));
         } else {
@@ -467,8 +468,6 @@ try {
         }
     } catch (Exception ex) {
         jtxtScreen.setText("Error");
-        // Opcional: mostrar mensaje de error más específico
-        // JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnEqualActionPerformed
 
