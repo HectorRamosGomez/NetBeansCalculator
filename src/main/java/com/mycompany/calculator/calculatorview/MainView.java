@@ -17,7 +17,9 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         jtxtScreen.setEditable(false);
     }
-
+    
+    private Calculator calculator = new Calculator();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -373,8 +375,8 @@ public class MainView extends javax.swing.JFrame {
     
     //Function who links buttons with Strings in order to show it in the Jtext
     private void AddNumbers (String str) {
-        String Nums = jtxtScreen.getText() + str;
-        jtxtScreen.setText(Nums);
+        String currentText = jtxtScreen.getText();
+        jtxtScreen.setText(currentText +  str);
     }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         AddNumbers("6");
@@ -385,7 +387,8 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModActionPerformed
 
     private void btnCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCActionPerformed
-        // TODO add your handling code here:
+    jtxtScreen.setText("");
+    calculator.clear();
     }//GEN-LAST:event_btnCActionPerformed
 
     private void btnPercentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercentActionPerformed
@@ -449,11 +452,28 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnsActionPerformed
 
     private void btnEqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEqualActionPerformed
-        AddNumbers("=");
+try {
+        String expression = jtxtScreen.getText();
+        if (expression.isEmpty()) {
+            return;
+        }
+        double result = calculator.evaluate(expression);
+        
+        // Formatear el resultado para quitar decimales innecesarios
+        if (result == (long) result) {
+            jtxtScreen.setText(String.format("%d", (long) result));
+        } else {
+            jtxtScreen.setText(String.format("%s", result));
+        }
+    } catch (Exception ex) {
+        jtxtScreen.setText("Error");
+        // Opcional: mostrar mensaje de error más específico
+        // JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnEqualActionPerformed
 
     private void btnCommaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommaActionPerformed
-        AddNumbers(",");
+        jtxtScreen.setText(",");
     }//GEN-LAST:event_btnCommaActionPerformed
 
     private void btnZeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZeroActionPerformed
